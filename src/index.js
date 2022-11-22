@@ -25,10 +25,7 @@ const onSubmitAction = (event) => {
 
 const fetchPictures = async () => {
   const response = await fetch(
-    `https://pixabay.com/api/?key=31495238-8710d87c3c0eb2a83465ec547&q=${searchData}&image_type=photo&pretty=true&page=${pageNumber}&per_page=40`
-  );
-  console.log(
-    `https://pixabay.com/api/?key=31495238-8710d87c3c0eb2a83465ec547&q=${searchData}&image_type=photo&pretty=true&page=${pageNumber}&per_page=40`
+    `https://pixabay.com/api/?key=31495238-8710d87c3c0eb2a83465ec547&q=${searchData}&image_type=photo&page=${pageNumber}&per_page=40&safesearch=true&orientation=horizontal`
   );
   const pictures = await response.json();
   console.log(pictures.total);
