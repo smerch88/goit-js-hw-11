@@ -1,5 +1,9 @@
 import axios from "axios";
 import Notiflix from "notiflix";
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
+import createCard from "./templates/card.hbs";
 
 const searchFormRef = document.querySelector(".search-form");
 const div = document.querySelector(".gallery");
@@ -14,11 +18,8 @@ const onSubmitAction = (event) => {
   div.innerHTML = "";
   searchData = event.currentTarget.searchQuery.value;
   fetchPictures().then((pictures) => {
-    console.log(pictures.hits);
-    pictures.hits.forEach((element) => {
-      const pictureUrl = element.largeImageURL;
-      renderData(pictureUrl);
-    });
+    const data = createCard(pictures.hits);
+    div.insertAdjacentHTML("beforeend", data);
   });
   console.log(searchData);
 };
@@ -37,23 +38,29 @@ const fetchPictures = async () => {
   return pictures;
 };
 
-function renderData(imgUrl) {
-  const data = `<img src="${imgUrl}"></img>`;
-  div.insertAdjacentHTML("beforeend", data);
-}
-
 const onClickAction = (event) => {
   pageNumber++;
   console.log(pageNumber);
   event.preventDefault();
   fetchPictures().then((pictures) => {
-    console.log(pictures.hits);
-    pictures.hits.forEach((element) => {
-      const pictureUrl = element.largeImageURL;
-      renderData(pictureUrl);
-    });
+    const data = createCard(pictures.hits);
+    div.insertAdjacentHTML("beforeend", data);
   });
 };
+
+// lightbox simple
+let gallery = new SimpleLightbox(".gallery a", {
+  caption: true,
+  captionsData: "alt",
+  captionDelay: 250,
+});
+gallery.on("show.simplelightbox", function () {
+  // do something…
+});
+
+gallery.on("error.simplelightbox", function (e) {
+  console.log(e); // some usefull information
+});
 
 searchFormRef.addEventListener("submit", onSubmitAction);
 loadMoreRef.addEventListener("click", onClickAction);
