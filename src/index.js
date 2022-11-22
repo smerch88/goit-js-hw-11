@@ -6,7 +6,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 import createCard from "./templates/card.hbs";
 
 const searchFormRef = document.querySelector(".search-form");
-const div = document.querySelector(".gallery");
+const galleryRef = document.querySelector(".gallery");
 const loadMoreRef = document.querySelector(".load-more");
 
 let searchData = "cat";
@@ -15,11 +15,11 @@ let pageNumber = 1;
 const onSubmitAction = (event) => {
   event.preventDefault();
   pageNumber = 1;
-  div.innerHTML = "";
+  galleryRef.innerHTML = "";
   searchData = event.currentTarget.searchQuery.value;
   fetchPictures().then((pictures) => {
     const data = createCard(pictures.hits);
-    div.insertAdjacentHTML("beforeend", data);
+    galleryRef.insertAdjacentHTML("beforeend", data);
   });
   console.log(searchData);
 };
@@ -39,14 +39,27 @@ const fetchPictures = async () => {
 };
 
 const onClickAction = (event) => {
+  event.preventDefault();
   pageNumber++;
   console.log(pageNumber);
   event.preventDefault();
   fetchPictures().then((pictures) => {
     const data = createCard(pictures.hits);
-    div.insertAdjacentHTML("beforeend", data);
+    galleryRef.insertAdjacentHTML("beforeend", data);
   });
 };
+
+searchFormRef.addEventListener("submit", onSubmitAction);
+loadMoreRef.addEventListener("click", onClickAction);
+
+galleryRef.addEventListener("click", (event) => {
+  event.preventDefault();
+  const { target } = event;
+
+  // if (target.nodeName !== "IMG") {
+  //   return;
+  // }
+});
 
 // lightbox simple
 let gallery = new SimpleLightbox(".gallery a", {
@@ -61,6 +74,3 @@ gallery.on("show.simplelightbox", function () {
 gallery.on("error.simplelightbox", function (e) {
   console.log(e); // some usefull information
 });
-
-searchFormRef.addEventListener("submit", onSubmitAction);
-loadMoreRef.addEventListener("click", onClickAction);
