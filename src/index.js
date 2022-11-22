@@ -11,6 +11,7 @@ let pageNumber = 1;
 const onSubmitAction = (event) => {
   event.preventDefault();
   pageNumber = 1;
+  div.innerHTML = "";
   searchData = event.currentTarget.searchQuery.value;
   fetchPictures().then((pictures) => {
     console.log(pictures.hits);
