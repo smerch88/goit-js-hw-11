@@ -6,13 +6,14 @@ export class ApiServices {
   constructor() {
     this.searchData = "cat";
     this.pageNumber = "1";
+    this.perPage = "40";
   }
 
   getPics() {
     return axios.get(
       `${this.#BASEURL}&q=${this.searchData}&image_type=photo&page=${
         this.pageNumber
-      }&per_page=40&safesearch=true&orientation=horizontal`
+      }&per_page=${this.perPage}&safesearch=true&orientation=horizontal`
     );
   }
 }
