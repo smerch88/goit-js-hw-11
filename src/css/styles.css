@@ -18,3 +18,39 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+.gallery {
+  display: grid;
+  max-width: 1140px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* grid-auto-rows: 500px; */
+  grid-gap: 12px;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.photo-card {
+  border: 1px solid black;
+}
+
+.thumb {
+  width: 100%;
+  height: 250px;
+}
+
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  /* margin: 0 20px; */
+  text-align: center;
+  /* justify-content: center; */
+
+}
+
+.info p {}

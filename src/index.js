@@ -56,9 +56,9 @@ galleryRef.addEventListener("click", (event) => {
   event.preventDefault();
   const { target } = event;
 
-  // if (target.nodeName !== "IMG") {
-  //   return;
-  // }
+  if (target.nodeName !== "IMG") {
+    return;
+  }
 });
 
 // lightbox simple
