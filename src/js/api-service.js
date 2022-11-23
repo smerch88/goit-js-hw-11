@@ -1,6 +1,3 @@
-// Документація https://fakestoreapi.com/docs
-// Отримати всіх користувачів https://fakestoreapi.com/products
-
 import axios from "axios";
 
 export class ApiServices {
