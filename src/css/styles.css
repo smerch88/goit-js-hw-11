@@ -19,7 +19,22 @@ body {
   margin-bottom: 16px;
 }
 
+.search-form {
+  background: rgb(6, 6, 160);
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  width: 100%;
+  position: fixed;
+}
+
+input {
+  height: 32px;
+  padding: 8px;
+}
+
 .gallery {
+  padding-top: 100px;
   display: grid;
   max-width: 1140px;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
