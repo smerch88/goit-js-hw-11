@@ -10,23 +10,24 @@ const loadMoreRef = document.querySelector(".load-more");
 
 const apiServices = new ApiServices();
 
-const onSubmitAction = (event) => {
+const onSubmitAction = async (event) => {
   event.preventDefault();
   galleryRef.innerHTML = "";
   apiServices.pageNumber = 1;
   apiServices.searchData = event.currentTarget.searchQuery.value;
-  apiServices
-    .getPics()
-    .then(({ data }) => {
-      if (data.total === 0) {
-        throw new Error(Notiflix.Notify.failure("Not found"));
-      } else if (apiServices.pageNumber === 1) {
-        Notiflix.Notify.success(`${data.total} pictures found.`);
-      }
-      const dataToRender = createCard(data.hits);
-      galleryRef.insertAdjacentHTML("beforeend", dataToRender);
-    })
-    .catch((error) => console.log(error));
+
+  try {
+    const { data } = await apiServices.getPics();
+    if (data.total === 0) {
+      throw new Error(Notiflix.Notify.failure("Not found"));
+    } else if (apiServices.pageNumber === 1) {
+      Notiflix.Notify.success(`${data.total} pictures found.`);
+    }
+    const dataToRender = createCard(data.hits);
+    galleryRef.insertAdjacentHTML("beforeend", dataToRender);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const onClickAction = (event) => {
